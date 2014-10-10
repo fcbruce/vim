@@ -2,7 +2,7 @@ vim
 ===
 setting of vim
 ===
-Author : fcbruce
+Author : fcbruce <fcbruce8964@gmail.com>
 ===
 color file :fcbruce.vim,which changed from blue.vim
 ===
