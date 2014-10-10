@@ -8,7 +8,7 @@
 
 """
 
-  auto trans your default code into vim source code in vimrc
+  auto translate your default code into vim source code in vimrc
   you just add your code in the text file which named 'default_code'
   and the vim source code will be build in the file 'used_in_vimrc'
 
