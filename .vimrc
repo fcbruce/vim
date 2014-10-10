@@ -154,7 +154,7 @@ function! ClosePair(char)
   endif
 endfunction
 
-set enc=utf-8
+set fencs=uft-8,gbk,latin1 fenc=utf-8 enc=utf-8
 
 " 不要使用vi的键盘模式，而是vim自己的 
 set nocompatible 
@@ -321,7 +321,6 @@ let Tlist_Exist_OnlyWindow = 1
 
 " 不要关闭其他文件的tags 
 let Tlist_File_Fold_Auto_Close = 0 
-
 " 不要显示折叠树 
 let Tlist_Enable_Fold_Column = 0
 
