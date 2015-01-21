@@ -25,7 +25,7 @@ hi ErrorMsg		guifg=orange	guibg=darkBlue	ctermfg=white
 hi WarningMsg	guifg=cyan		guibg=darkBlue	ctermfg=cyan	gui=bold
 hi ModeMsg		guifg=white 	gui=NONE	ctermfg=white
 hi MoreMsg		guifg=white 	gui=NONE	ctermfg=white
-hi Error		guifg=red		guibg=darkBlue	gui=underline	ctermfg=white
+hi Error		guifg=red		guibg=darkBlue	gui=underline	ctermfg=white ctermbg=black
 
 hi Todo			guifg=black		guibg=orange	ctermfg=black	ctermbg=darkYellow
 hi Cursor		guifg=black		guibg=white		ctermfg=black	ctermbg=white
@@ -48,3 +48,4 @@ hi DiffDelete   guibg=coral			guifg=black	ctermbg=cyan		ctermfg=black
 hi Folded		guibg=orange		guifg=black		ctermbg=white	ctermfg=black
 hi FoldColumn	guibg=gray30		guifg=black	ctermbg=gray		ctermfg=black
 hi cIf0			guifg=gray			ctermfg=gray
+
