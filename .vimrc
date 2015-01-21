@@ -1,15 +1,19 @@
-
+map <F8> : call Debug()<CR>
+func! Debug()
+  exec "w"
+  exec "!gdb %<"
+endfunc
 
 map <c-F5> : call Compile()<CR>
 func! Compile()
-  if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "C" || expand("%:e") == "cc" || expand("%:e") == "c++"
+  if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "cc" || expand("%:e") == "c++"
     exec "w"
-    exec "!g++ % -o %< -O2 -Wall -std=gnu++0x -static -lm -DFCBRUCE"
+    exec "!g++ % -o %< -O2 -Wall -std=gnu++0x -static -lm -g -DFCBRUCE"
   endif
   
   if expand("%:e") == "c"
     exec "w"
-    exec "!gcc % -o %< -O2 -Wall -std=gnu99 -static -lm "
+    exec "!gcc % -o %< -O2 -Wall -std=gnu99 -static -lm -g"
   endif
   
   if expand("%:e") == "java"
@@ -20,36 +24,40 @@ endfunc
 
 map <F5> : call Run()<CR>
 func! Run()
-  if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "C" || expand("%:e") == "cc" || expand("%:e") == "c++"
+  if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "cc" || expand("%:e") == "c++"
     exec "w"
-    exec "!./%<"
+    exec "!time ./%<"
   endif
-  
+ 
   if expand("%:e") == "c"
     exec "w"
-    exec "!./%<"
+    exec "!time ./%<"
   endif
   
   if expand("%:e") == "java"
     exec "w"
-    exec "!java %<"
+    exec "!time java %<"
   endif
   
   if expand("%:e") == "py"
     exec "w"
-    exec "!python %"
+    exec "!time python %"
   endif
 endfunc
 
 
-autocmd BufNewFile *.cpp,*.[ch],*.py,*.java exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*.cc,*cxx,*c++ exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
-  if &filetype == 'python'
-    call setline(1, "#") 
+  if &filetype == 'python' || &filetype == 'sh'
+    if &filetype == 'sh'
+      call setline(1,"#!/bin/bash")
+    else
+      call setline(1,"#")
+    endif 
     call append(line("."), "#") 
-    call append(line(".")+1, "# Author : fcbrucev <fcbruce8964@gmail.com>") 
+    call append(line(".")+1, "# Author : fcbruce <fcbruce8964@gmail.com>") 
     call append(line(".")+2, "#") 
     call append(line(".")+3, "# Time : ".strftime("%c")) 
     call append(line(".")+4, "#") 
@@ -65,7 +73,7 @@ func SetTitle()
     call append(line(".")+5, " */")
   endif
     
-    if &filetype == 'cpp'
+    if &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'cxx' || &filetype == 'c++'
         call append(line(".")+6, "#include <cstdio>")
         call append(line(".")+7, "#include <iostream>")
         call append(line(".")+8, "#include <sstream>")
@@ -132,13 +140,13 @@ endfunc
 
 
 set t_Co=256
-set background=dark
+set background=light
 colorscheme fcbruce
-"colorscheme solarized
+""colorscheme solarized
 
 
 :inoremap ( ()<ESC>i
-":inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap ) <c-r>=ClosePair(')')<CR>
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
 :inoremap { {}<ESC>i
@@ -154,7 +162,46 @@ function! ClosePair(char)
   endif
 endfunction
 
-set fencs=uft-8,gbk,latin1 fenc=utf-8 enc=utf-8
+au FileType php setlocal dict+=~/.vim/dict/php_funclist.dict
+au FileType css setlocal dict+=~/.vim/dict/css.dict
+au FileType c setlocal dict+=~/.vim/dict/c.dict
+au FileType cpp setlocal dict+=~/.vim/dict/cpp.dict
+au FileType scale setlocal dict+=~/.vim/dict/scale.dict
+au FileType javascript setlocal dict+=~/.vim/dict/javascript.dict
+au FileType html setlocal dict+=~/.vim/dict/javascript.dict
+au FileType html setlocal dict+=~/.vim/dict/css.dict
+
+""inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+""function! Smart_TabComplete()
+""  let line = getline('.')                         " current line
+""
+""  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+""                                                  " line to one character right
+""                                                  " of the cursor
+""  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+""  if (strlen(substr)==0)                          " nothing to match on empty string
+""    return "\<tab>"
+""  endif
+""  let has_period = match(substr, '\.') != -1      " position of period, if any
+""  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+""  if (!has_period && !has_slash)
+""    return "\<C-X>\<C-P>"                         " existing text matching
+""  elseif ( has_slash )
+""    return "\<C-X>\<C-F>"                         " file matching
+""  else
+""    return "\<C-X>\<C-O>"                         " plugin matching
+""  endif
+""endfunction
+
+set fencs=utf-8,gbk,latin1 fenc=utf-8 enc=utf-8
+
+"高亮当前行
+set cul
+"autocmd InsertEnter * se cul
+"set cuc
+
+"代码补全
+set completeopt=preview,menu
 
 " 不要使用vi的键盘模式，而是vim自己的 
 set nocompatible 
@@ -184,6 +231,7 @@ set viminfo+=!
 set iskeyword+=_,$,@,%,#,- 
 
 " 语法高亮 
+syntax enable
 syntax on 
 
 " 高亮字符，让其不受100列限制 
@@ -288,6 +336,8 @@ set smartindent
 " 使用C样式的缩进 
 set cindent 
 
+""set indentexpr
+
 " 制表符为2
 set tabstop=2 
 
@@ -303,6 +353,9 @@ set nowrap
 
 " 在行和段开始处使用制表符 
 set smarttab 
+
+set foldenable      " 允许折叠  
+set foldmethod=manual   " 手动折叠  
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " CTags的设定 
@@ -321,6 +374,7 @@ let Tlist_Exist_OnlyWindow = 1
 
 " 不要关闭其他文件的tags 
 let Tlist_File_Fold_Auto_Close = 0 
+
 " 不要显示折叠树 
 let Tlist_Enable_Fold_Column = 0
 
@@ -330,7 +384,7 @@ let Tlist_Enable_Fold_Column = 0
 " 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
 
 if has("autocmd") 
-autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
+autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby,sh set number 
 autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
 autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
 autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
@@ -340,3 +394,4 @@ autocmd BufReadPost *
 \ exe " normal g`\"" | 
 \ endif 
 endif "has("autocmd") 
+
