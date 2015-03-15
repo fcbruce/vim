@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer: fcbruce <fcbruce8964@gmail.com>	
-" Last Change:	2014 Sep 23
+" Last Change:	2015 Mar 15
 
 set background=dark
 hi clear
