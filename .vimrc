@@ -1,3 +1,8 @@
+
+""if expand("%:e") == "cc" 
+""  set makeprg =g++\ %\ -o\ %<\ -O2\ -Wall\ -std=gnu++0x\ -static\ -lm\ -g\ -DFCBRUCE
+""endif
+
 map <F8> : call Debug()<CR>
 func! Debug()
   exec "w"
@@ -13,7 +18,7 @@ func! Compile()
   
   if expand("%:e") == "c"
     exec "w"
-    exec "!gcc % -o %< -O2 -Wall -std=gnu99 -static -lm -g"
+    exec "!gcc % -o %< -O2 -Wall -std=gnu89 -static -lm -g"
   endif
   
   if expand("%:e") == "java"
@@ -46,7 +51,7 @@ func! Run()
 endfunc
 
 
-autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*.cc,*cxx,*c++ exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*.cc,*.cxx,*.c++ exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
@@ -73,7 +78,7 @@ func SetTitle()
     call append(line(".")+5, " */")
   endif
     
-    if &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'cxx' || &filetype == 'c++'
+    if  expand("%:e") == "cxx" || expand("%:e") == "cc" || expand("%:e") == "c++"
         call append(line(".")+6, "#include <cstdio>")
         call append(line(".")+7, "#include <iostream>")
         call append(line(".")+8, "#include <sstream>")
@@ -124,15 +129,58 @@ func SetTitle()
         call append(line(".")+6, "import java.util.*;")
         call append(line(".")+7, "import java.math.*;")
         call append(line(".")+8, "import java.io.*;")
-        call append(line(".")+9, "public class ".expand("%<"))
-        call append(line(".")+10, "{")
-        call append(line(".")+11, "  public static void main(String[] args)")
-        call append(line(".")+12, "  {")
-        call append(line(".")+13, "  ")
-        call append(line(".")+14, "  ")
-        call append(line(".")+15, "  ")
-        call append(line(".")+16, "  }")
-        call append(line(".")+17, "}")
+        call append(line(".")+9,"public class ".expand("%<")." {")
+        call append(line(".")+10,"  public static void main(String[] args) {")
+        call append(line(".")+11,"    InputStream inputStream = System.in;")
+        call append(line(".")+12,"    OutputStream outputStream = System.out;")
+        call append(line(".")+13,"    InputReader in = new InputReader(inputStream);")
+        call append(line(".")+14,"    PrintWriter out = new PrintWriter(outputStream);")
+        call append(line(".")+15,"    Solve solver = new Solve();")
+        call append(line(".")+16,"    solver.run(in,out);")
+        call append(line(".")+17,"    out.close();")
+        call append(line(".")+18,"  }")
+        call append(line(".")+19,"}")
+        call append(line(".")+20,"")
+        call append(line(".")+21,"class Solve {")
+        call append(line(".")+22,"  public void run(InputReader in,PrintWriter out) {")
+        call append(line(".")+23,"")
+        call append(line(".")+24,"")
+        call append(line(".")+25,"  }")
+        call append(line(".")+26,"}")
+        call append(line(".")+27,"")
+        call append(line(".")+28,"class InputReader {")
+        call append(line(".")+29,"  public BufferedReader reader;")
+        call append(line(".")+30,"  public StringTokenizer tokenizer;")
+        call append(line(".")+31,"")
+        call append(line(".")+32,"  public InputReader(InputStream stream) {")
+        call append(line(".")+33,"    reader = new BufferedReader(new InputStreamReader(stream), 32768);")
+        call append(line(".")+34,"    tokenizer = null;")
+        call append(line(".")+35,"  }")
+        call append(line(".")+36,"")
+        call append(line(".")+37,"  public String next() {")
+        call append(line(".")+38,"    while (tokenizer == null || !tokenizer.hasMoreTokens()) {")
+        call append(line(".")+39,"      try {")
+        call append(line(".")+40,"        tokenizer = new StringTokenizer(reader.readLine());")
+        call append(line(".")+41,"      } catch (IOException e) {")
+        call append(line(".")+42,"        throw new RuntimeException(e);")
+        call append(line(".")+43,"      }")
+        call append(line(".")+44,"    }")
+        call append(line(".")+45,"    return tokenizer.nextToken();")
+        call append(line(".")+46,"  }")
+        call append(line(".")+47,"")
+        call append(line(".")+48,"  public int nextInt() {")
+        call append(line(".")+49,"    return Integer.parseInt(next());")
+        call append(line(".")+50,"  }")
+        call append(line(".")+51,"")
+        call append(line(".")+52,"  public long nextLong() {")
+        call append(line(".")+53,"    return Long.parseLong(next());")
+        call append(line(".")+54,"  }")
+        call append(line(".")+55,"")
+        call append(line(".")+56,"  public double nextDouble() {")
+        call append(line(".")+57,"    return Double.parseDouble(next());")
+        call append(line(".")+58,"  }")
+        call append(line(".")+59,"}")
+      
     endif
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
