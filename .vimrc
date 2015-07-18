@@ -59,8 +59,8 @@ autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*.cc,*.cxx,*.c++ exec ":call Se
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
-  if &filetype == 'python' || &filetype == 'sh'
-    if &filetype == 'sh'
+  if expand("%:e") == "py" || expand("%:e") == "sh"
+    if expand("%:e") == "sh"
       call setline(1,"#!/bin/bash")
     else
       call setline(1,"#")
@@ -129,7 +129,7 @@ func SetTitle()
         call append(line(".")+49, "  return 0;")
         call append(line(".")+50, "}")
     endif
-    if &filetype == 'java'
+    if expand("%:e") == 'java'
         call append(line(".")+6, "import java.util.*;")
         call append(line(".")+7, "import java.math.*;")
         call append(line(".")+8, "import java.io.*;")
