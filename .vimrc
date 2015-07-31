@@ -52,14 +52,20 @@ func! Run()
     exec "w"
     exec "!time python %"
   endif
+
+  if expand("%:e") == "pl"
+    exec "w"
+    exec "!time perl %"
+  endif
+
 endfunc
 
 
-autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*.cc,*.cxx,*.c++ exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
-  if expand("%:e") == "py" || expand("%:e") == "sh"
+  if expand("%:e") == "py" || expand("%:e") == "sh" || expand("%:e") == "pl"
     if expand("%:e") == "sh"
       call setline(1,"#!/bin/bash")
     else
