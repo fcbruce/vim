@@ -266,7 +266,7 @@ endfunc
 
 set t_Co=256
 set background=light
-colorscheme fcbruce
+""colorscheme fcbruce
 ""colorscheme solarized
 
 
@@ -287,14 +287,14 @@ function! ClosePair(char)
   endif
 endfunction
 
-au FileType php setlocal dict+=~/.vim/dict/php_funclist.dict
-au FileType css setlocal dict+=~/.vim/dict/css.dict
-au FileType c setlocal dict+=~/.vim/dict/c.dict
-au FileType cpp setlocal dict+=~/.vim/dict/cpp.dict
-au FileType scale setlocal dict+=~/.vim/dict/scale.dict
-au FileType javascript setlocal dict+=~/.vim/dict/javascript.dict
-au FileType html setlocal dict+=~/.vim/dict/javascript.dict
-au FileType html setlocal dict+=~/.vim/dict/css.dict
+""au FileType php setlocal dict+=~/.vim/dict/php_funclist.dict
+""au FileType css setlocal dict+=~/.vim/dict/css.dict
+""au FileType c setlocal dict+=~/.vim/dict/c.dict
+""au FileType cpp setlocal dict+=~/.vim/dict/cpp.dict
+""au FileType scale setlocal dict+=~/.vim/dict/scale.dict
+""au FileType javascript setlocal dict+=~/.vim/dict/javascript.dict
+""au FileType html setlocal dict+=~/.vim/dict/javascript.dict
+""au FileType html setlocal dict+=~/.vim/dict/css.dict
 
 ""inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 ""function! Smart_TabComplete()
@@ -503,20 +503,22 @@ let Tlist_File_Fold_Auto_Close = 0
 " 不要显示折叠树 
 let Tlist_Enable_Fold_Column = 0
 
+set number
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " Autocommands 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
 
-if has("autocmd") 
-autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby,sh set number 
-autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
-autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
-autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
-autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
-autocmd BufReadPost * 
-\ if line("'\"") > 0 && line("'\"") <= line("$") | 
-\ exe " normal g`\"" | 
-\ endif 
-endif "has("autocmd") 
-
+""if has("autocmd") 
+""autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby,sh set number 
+""autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
+""autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
+""autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
+""autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
+""autocmd BufReadPost * 
+""\ if line("'\"") > 0 && line("'\"") <= line("$") | 
+""\ exe " normal g`\"" | 
+""\ endif 
+""endif "has("autocmd") 
+""
