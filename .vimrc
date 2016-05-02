@@ -58,14 +58,19 @@ func! Run()
     exec "!time perl %"
   endif
 
+  if expand("%:e") == "bash"
+    exec "w"
+    exec "!bash %"
+  endif
+
 endfunc
 
 
-autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*bash,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
-  if expand("%:e") == "py" || expand("%:e") == "sh" || expand("%:e") == "pl"
+  if expand("%:e") == "py" || expand("%:e") == "sh" || expand("%:e") == "pl" || expand("%:e") == "bash"
     if expand("%:e") == "sh"
       call setline(1,"#!/bin/bash")
     else
@@ -74,7 +79,7 @@ func SetTitle()
     call append(line("."), "#") 
     call append(line(".")+1, "# Author : fcbruce <fcbruce8964@gmail.com>") 
     call append(line(".")+2, "#") 
-    call append(line(".")+3, "# Time : ".strftime("%c")) 
+    call append(line(".")+3, "# Time : ".strftime("%a %d %b %Y %H:%M:%S")) 
     call append(line(".")+4, "#") 
     call append(line(".")+5, "#")
     call append(line(".")+6, "")
@@ -83,7 +88,7 @@ func SetTitle()
     call append(line("."), " *") 
     call append(line(".")+1, " * Author : fcbruce <fcbruce8964@gmail.com>") 
     call append(line(".")+2, " *") 
-    call append(line(".")+3, " * Time : ".strftime("%c")) 
+    call append(line(".")+3, " * Time : ".strftime("%a %d %b %Y %H:%M:%S")) 
     call append(line(".")+4, " *") 
     call append(line(".")+5, " */")
   endif
@@ -126,7 +131,7 @@ func SetTitle()
       call append(line(".")+40,"int main()")
       call append(line(".")+41,"{")
       call append(line(".")+42,"#ifdef FCBRUCE")
-      call append(line(".")+43,"  freopen(\"/home/fcbruce/code/t\", \"r\", stdin);")
+      call append(line(".")+43,"  freopen(\"/root/code/t\", \"r\", stdin);")
       call append(line(".")+44,"#endif // FCBRUCE")
       call append(line(".")+45,"")
       call append(line(".")+46,"")
