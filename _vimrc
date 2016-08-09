@@ -1,4 +1,4 @@
-
+﻿
 if expand("%:e") == "c" 
   set makeprg =gcc\ %\ -o\ %<\ -Wall\ -std=gnu99\ -D_SVID_SOURCE
 endif
@@ -517,7 +517,7 @@ let Tlist_Enable_Fold_Column = 0
 " 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
 
 if has("autocmd") 
-autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby,sh set number 
+autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby,sh,javascript set number 
 autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
 autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
 autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
