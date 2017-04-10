@@ -14,7 +14,7 @@ func! Compile()
   if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "cc" || expand("%:e") == "c++"
     exec "w"
     exec "!g++ % -o %< -O2 -Wall -std=gnu++0x -static -lm -g -DFCBRUCE"
-  endif
+  endif"
   
   if expand("%:e") == "c"
     exec "w"
