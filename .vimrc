@@ -66,7 +66,7 @@ func! Run()
 endfunc
 
 
-autocmd BufNewFile *.cpp,*.[ch],*.py,*.java,*.sh,*bash,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.hpp,*.py,*.java,*.sh,*bash,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
@@ -131,7 +131,7 @@ func SetTitle()
       call append(line(".")+40,"int main()")
       call append(line(".")+41,"{")
       call append(line(".")+42,"#ifdef FCBRUCE")
-      call append(line(".")+43,"  freopen(\"/root/code/t\", \"r\", stdin);")
+      call append(line(".")+43,"  freopen(\"/home/fcbruce/code/t\", \"r\", stdin);")
       call append(line(".")+44,"#endif // FCBRUCE")
       call append(line(".")+45,"")
       call append(line(".")+46,"")
