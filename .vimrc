@@ -9,11 +9,11 @@ func! Debug()
   exec "!gdb %<"
 endfunc
 
-map <c-F5> : call Compile()<CR>
+map <F4> : call Compile()<CR>
 func! Compile()
   if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "cc" || expand("%:e") == "c++"
     exec "w"
-    exec "!g++ % -o %< -O2 -Wall -std=gnu++0x -static -lm -g -DFCBRUCE"
+    exec "!g++ % -o %< -O2 -Wall -std=c++0x -DFCBRUCE"
   endif"
   
   if expand("%:e") == "c"
@@ -131,7 +131,7 @@ func SetTitle()
       call append(line(".")+40,"int main()")
       call append(line(".")+41,"{")
       call append(line(".")+42,"#ifdef FCBRUCE")
-      call append(line(".")+43,"  freopen(\"/home/fcbruce/code/t\", \"r\", stdin);")
+      call append(line(".")+43,"  freopen(\"/Users/fcbruce/code/t\", \"r\", stdin);")
       call append(line(".")+44,"#endif // FCBRUCE")
       call append(line(".")+45,"")
       call append(line(".")+46,"")
@@ -343,7 +343,7 @@ set history=100
 set confirm 
 
 " 与windows共享剪贴板 
-set clipboard=unnamedplus
+""set clipboard=unnamed
 
 " 侦测文件类型 
 filetype on 
