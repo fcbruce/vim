@@ -269,10 +269,10 @@ func SetTitle()
 endfunc 
 
 
-set t_Co=256
-set background=light
+""set t_Co=256
+set background=dark
 ""colorscheme fcbruce
-""colorscheme solarized
+colorscheme solarized
 
 
 :inoremap ( ()<ESC>i
