@@ -1,6 +1,11 @@
 vim
 ===
-setting of vim
-Author : fcbruce <fcbruce8964@gmail.com>
-color file : fcbruce.vim,which changed from blue.vim
-build\_default\_code.py is a tool to make default code into vim source code
+
+## Install Plugins  
+Launch `vim` and run `:PluginInstall`  
+Reference [`Vundle.vim`](https://github.com/VundleVim/Vundle.vim)  
+
+
+## Other
+Author : fcbruce <fcbruce8964@gmail.com>  
+`build_default_code.py` is a tool to make default code into vim source code  

@@ -1,3 +1,35 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'tpope/vim-surround'
+
+Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plugin 'roxma/vim-tmux-clipboard'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
 
 ""if expand("%:e") == "cc" 
 ""  set makeprg =g++\ %\ -o\ %<\ -O2\ -Wall\ -std=gnu++0x\ -static\ -lm\ -g\ -DFCBRUCE
@@ -13,12 +45,12 @@ map <F4> : call Compile()<CR>
 func! Compile()
   if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "cc" || expand("%:e") == "c++"
     exec "w"
-    exec "!g++ % -o %< -O2 -Wall -std=c++0x -DFCBRUCE"
+    exec "!g++ % -o %< -O2 -Wall -std=c++14 -DFCBRUCE"
   endif"
   
   if expand("%:e") == "c"
     exec "w"
-    exec "!gcc % -o %< -O2 -Wall -std=gnu89 -static -lm -g"
+    exec "!gcc % -o %< -O2 -Wall -std=c11 -static -lm -g"
   endif
   
   if expand("%:e") == "java"
@@ -66,11 +98,11 @@ func! Run()
 endfunc
 
 
-autocmd BufNewFile *.cpp,*.[ch],*.hpp,*.py,*.java,*.sh,*bash,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.hpp,*.py,*.pyx,*.java,*.sh,*bash,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
-  if expand("%:e") == "py" || expand("%:e") == "sh" || expand("%:e") == "pl" || expand("%:e") == "bash"
+  if expand("%:e") == "py" || expand("%:e") == "sh" || expand("%:e") == "pl" || expand("%:e") == "bash" || expand("%:e") == "pyx"
     if expand("%:e") == "sh"
       call setline(1,"#!/bin/bash")
     else
@@ -131,7 +163,7 @@ func SetTitle()
       call append(line(".")+40,"int main()")
       call append(line(".")+41,"{")
       call append(line(".")+42,"#ifdef FCBRUCE")
-      call append(line(".")+43,"  freopen(\"/Users/fcbruce/code/t\", \"r\", stdin);")
+      call append(line(".")+43,"  freopen(\"/Users/fcbruce/code/acm/t\", \"r\", stdin);")
       call append(line(".")+44,"#endif // FCBRUCE")
       call append(line(".")+45,"")
       call append(line(".")+46,"")
@@ -343,7 +375,7 @@ set history=100
 set confirm 
 
 " 与windows共享剪贴板 
-""set clipboard=unnamed
+""set clipboard+=unnamed
 
 " 侦测文件类型 
 filetype on 
