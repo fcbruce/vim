@@ -14,11 +14,13 @@ Plugin 'tpope/vim-surround'
 
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'roxma/vim-tmux-clipboard'
+Plugin 'scrooloose/nerdtree'
 
 call vundle#end()            " required
-filetype plugin indent on    " required
+
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+filetype plugin on
+filetype indent on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -45,12 +47,12 @@ map <F4> : call Compile()<CR>
 func! Compile()
   if expand("%:e") == "cpp" || expand("%:e") == "cxx" || expand("%:e") == "cc" || expand("%:e") == "c++"
     exec "w"
-    exec "!g++ % -o %< -O2 -Wall -std=c++14 -DFCBRUCE"
+    exec "!g++-7 % -o %< -O2 -Wall -std=c++17 -DFCBRUCE"
   endif"
   
   if expand("%:e") == "c"
     exec "w"
-    exec "!gcc % -o %< -O2 -Wall -std=c11 -static -lm -g"
+    exec "!gcc-7 % -o %< -O2 -Wall -std=c11 -static -lm -g"
   endif
   
   if expand("%:e") == "java"
@@ -98,7 +100,7 @@ func! Run()
 endfunc
 
 
-autocmd BufNewFile *.cpp,*.[ch],*.hpp,*.py,*.pyx,*.java,*.sh,*bash,*.cc,*.cxx,*.c++,*.pl exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.hpp,*.py,*.pyx,*.java,*.sh,*.bash,*.cc,*.cxx,*.c++,*.pl,*.rs exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 
@@ -377,15 +379,6 @@ set confirm
 " 与windows共享剪贴板 
 ""set clipboard+=unnamed
 
-" 侦测文件类型 
-filetype on 
-
-" 载入文件类型插件 
-filetype plugin on 
-
-" 为特定文件类型载入相关缩进文件 
-filetype indent on 
-
 " 保存全局变量 
 set viminfo+=! 
 
@@ -542,20 +535,9 @@ let Tlist_Enable_Fold_Column = 0
 
 set number
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" Autocommands 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
+autocmd FileType java,c,cpp,rust,javascript,sh set tabstop=2|set shiftwidth=2|set softtabstop=2|set expandtab
+autocmd FileType python set tabstop=4|set shiftwidth=4|set softtabstop=4|set expandtab
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-""if has("autocmd") 
-""autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby,sh set number 
-""autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
-""autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
-""autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
-""autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
-""autocmd BufReadPost * 
-""\ if line("'\"") > 0 && line("'\"") <= line("$") | 
-""\ exe " normal g`\"" | 
-""\ endif 
-""endif "has("autocmd") 
-""
+command Tree :NERDTreeToggle
